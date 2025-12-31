@@ -155,7 +155,7 @@ const Workshop_Register = () => {
                       <p className="text-[#555555] font-semibold text-sm lg:text-lg mb-1 lg:mb-2">
                         {t("select_city")}
                       </p>
-                      {["الرياض", "جدة", "الدمام"].map((city, idx) => (
+                      {choosed_workshop?.location?.map((city, idx) => (
                         <label
                           key={idx}
                           className="flex items-center gap-x-2 lg:gap-x-3 lg:my-0 my-2"

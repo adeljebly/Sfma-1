@@ -19,11 +19,12 @@ const CustomCalendar = ({ filters }) => {
   const fetchCourses = useCallback(async () => {
     try {
       setLoading(true);
-      console.log(filters);
       const month = moment(currentDate).month() + 1;
+      const year = moment(currentDate).year();
       const params = {
         type: filters.category || "",
         month,
+        year,
         location: filters.city || "",
         course_category_id: filters.path || "",
         attendance: filters.attendance || "",

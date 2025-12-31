@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation"; // أو "next/router" لو نسخة أقدم
 
-const ACCEPTED_TYPES = ["image/jpeg", "image/png"];
+// const ACCEPTED_TYPES = ["image/jpeg", "image/png"];
 
 const PaymentPage = () => {
   const lang = useLocale();
@@ -25,24 +25,20 @@ const PaymentPage = () => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
-
     if (!selectedFile) return;
 
-    if (!ACCEPTED_TYPES.includes(selectedFile.type)) {
-      toast.error("This extension is not supported", { position: "top-right" });
-      resetFileInput();
-      return;
-    }
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
 
     const tempUrl = URL.createObjectURL(selectedFile);
-    const image = new window.Image();
-    image.src = tempUrl;
+    setFile(selectedFile);
 
-    image.onload = () => {
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    // لو صورة → نعرض Preview
+    if (selectedFile.type.startsWith("image/")) {
       setPreviewUrl(tempUrl);
-      setFile(selectedFile);
-    };
+    } else {
+      // PDF أو أي ملف تاني
+      setPreviewUrl(null);
+    }
   };
 
   const resetFileInput = () => {
@@ -166,11 +162,11 @@ const PaymentPage = () => {
           <input
             id="logo"
             type="file"
-            accept="image/jpeg,image/png"
             ref={fileInputRef}
             onChange={handleFileChange}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
           />
+
           <div className="flex flex-col items-center border-4 border-dashed border-gray-300 rounded-md bg-gray-100 px-6 py-10 text-gray-500 mt-6 text-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -196,19 +192,26 @@ const PaymentPage = () => {
           </div>
         </div>
 
-        {previewUrl && (
-          <div className="mt-4 relative">
+        {file && (
+          <div className="mt-4 relative flex items-center gap-3">
             <button
               onClick={resetFileInput}
-              className="absolute top-0 right-0 text-lg text-red-700 w-5 h-5 flex items-center justify-center bg-white rounded-full cursor-pointer"
+              className="absolute -top-2 -right-2 text-xs text-red-700 w-5 h-5 flex items-center justify-center bg-white rounded-full"
             >
               x
             </button>
-            <img
-              src={previewUrl}
-              alt="Preview"
-              className="w-32 h-32 object-cover rounded-md border"
-            />
+
+            {previewUrl ? (
+              <img
+                src={previewUrl}
+                alt="Preview"
+                className="w-32 h-32 object-cover rounded-md border"
+              />
+            ) : (
+              <div className="px-4 py-3 border rounded-md bg-gray-100 text-sm text-gray-700">
+                📄 {file.name}
+              </div>
+            )}
           </div>
         )}
       </div>

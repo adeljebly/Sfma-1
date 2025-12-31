@@ -531,10 +531,11 @@
     "enter_serial_instruction": "أدخل الرقم التسلسلي لعضويتك للتحقق من حالتها",
     "enter_membership_number": "أدخل رقم العضوية",
     "verify_button": "تحقق",
-    "valid_certificate": "شهادة سارية",
+    "valid_certificate": "عضوية سارية",
     "name": "الاسم",
     "serial_required": "من فضلك أدخل رقم العضوية",
-    "certificate_type": "نوع الشهادة",
+    "membership_expire": "الأيام المتبقية",
+    "membership_user_name": "إسم صاحب العضوية",
     "issue_date": "تاريخ الاصدار",
 
     "contact_support": "تواجه مشكلة؟ تواصل معنا عن طريق",

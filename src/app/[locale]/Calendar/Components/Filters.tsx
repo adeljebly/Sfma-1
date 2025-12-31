@@ -37,8 +37,8 @@ const Filters = ({ onChange }) => {
   ];
 
   const attendance_state = [
-    { value: "both", label: t("attendance_state.both") },
-    { value: "in_person", label: t("attendance_state.in_person") },
+    { value: "hybrid", label: t("attendance_state.both") },
+    { value: "offline", label: t("attendance_state.in_person") },
     { value: "online", label: t("attendance_state.online") },
   ];
 

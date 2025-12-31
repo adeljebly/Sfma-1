@@ -34,7 +34,7 @@ const Membership_Verification = () => {
         }
       );
       const data = await res.json();
-      if (res.ok && data.success) {
+      if (res.ok || data.success || data?.status == 200) {
         setVerificationData(data.data); // Assuming data.data contains the response
       } else {
         setError(data.message || t("verification_failed"));
@@ -94,19 +94,25 @@ const Membership_Verification = () => {
           <div className="bg-[#61B8A03D] mt-6 rounded-lg p-4 font-bold lg:text-[14px] text-[12px] lg:leading-7 leading-[22px]">
             <p>{t("valid_certificate")}</p>
             <p>
-              {t("name")}: {verificationData.name || "N/A"}
+              {t("name")}: {verificationData?.membership_name || "N/A"}
             </p>
             <p>
-              {t("certificate_type")}:{" "}
-              {verificationData.certificate_type || "N/A"}
+              {t("membership_user_name")}: {verificationData.user_name || "N/A"}
+            </p>
+            <p>
+              {t("membership_expire")}:{" "}
+              {verificationData.remaining_days || "N/A"}
             </p>
             <p>
               {t("issue_date")}:{" "}
-              {verificationData.issue_date
-                ? new Date(verificationData.issue_date).toLocaleDateString(
-                    locale === "ar" ? "ar-EG" : "en-US",
-                    { day: "numeric", month: "long", year: "numeric" }
-                  )
+              {verificationData?.enrollment_date
+                ? new Date(
+                    verificationData?.enrollment_date
+                  ).toLocaleDateString(locale === "ar" ? "ar-EG" : "en-US", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })
                 : "N/A"}
             </p>
           </div>
