@@ -4,8 +4,8 @@ import React from "react";
 import JobCards from "./Components/JobCards";
 import Link from "next/link";
 
-const Page = async ({ params }) => {
-  const { locale } = params;
+const Page = async ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = await params;
   const messages = (await import(`../../../messages/${locale}.json`)).default;
   const t = createTranslator({
     locale,

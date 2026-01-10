@@ -1,11 +1,13 @@
 "use client";
+import { use } from "react";
 import { CheckCircle } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const SuccesPage = ({ params: { locale, id } }: any) => {
+const SuccesPage = ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = use(params);
   const lang = useLocale();
   const choosed_course: any = JSON.parse(
     localStorage.getItem("choosed_course")

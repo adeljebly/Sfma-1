@@ -10,8 +10,8 @@ import PillarsSection from "./Components/PillarsSection";
 import Our_Tasks from "./Components/Our_Tasks";
 import Our_Message from "./Components/Our_Message";
 
-const Page = async ({ params }) => {
-  const { locale } = params;
+const Page = async ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = await params;
   const messages = (await import(`../../../messages/${locale}.json`)).default;
   const t = createTranslator({
     locale,

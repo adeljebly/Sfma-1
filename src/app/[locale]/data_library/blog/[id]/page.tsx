@@ -5,7 +5,8 @@ import React from "react";
 import SingleJob from "./Components/SingleBlog";
 import SingleBlog from "./Components/SingleBlog";
 
-export default async function Page({ params: { locale, id } }: any) {
+export default async function Page({ params }: { params: Promise<{ locale: string; id: string }> }) {
+  const { locale, id } = await params;
   const messages = (await import(`../../../../../messages/${locale}.json`))
     .default;
 

@@ -3,8 +3,8 @@ import React from "react";
 import NewsSection from "../Components/NewsSection";
 import Image from "next/image";
 
-const Page = async ({ params }) => {
-  const { locale } = params;
+const Page = async ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = await params;
   const messages = (await import(`../../../messages/${locale}.json`)).default;
   const t = createTranslator({
     locale,

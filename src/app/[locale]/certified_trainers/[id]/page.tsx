@@ -3,7 +3,8 @@ import Image from "next/image";
 import React from "react";
 import Single from "./Components/Single";
 
-export default async function Page({ params: { locale, id } }: any) {
+export default async function Page({ params }: { params: Promise<{ locale: string; id: string }> }) {
+  const { locale, id } = await params;
   const messages = (await import(`../../../../messages/${locale}.json`))
     .default;
   const t = createTranslator({

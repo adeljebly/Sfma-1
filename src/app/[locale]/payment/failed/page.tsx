@@ -1,11 +1,13 @@
 "use client";
+import { use } from "react";
 import { XCircle } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const FailedPage = ({ params: { locale, id } }: any) => {
+const FailedPage = ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = use(params);
   const choosed_course: any = JSON.parse(
     localStorage.getItem("choosed_course")
   );

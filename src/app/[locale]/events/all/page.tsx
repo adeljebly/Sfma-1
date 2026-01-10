@@ -6,7 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import AllEvents from "./Components/AllEvents";
 
-export default async function Page({ params: { locale } }: any) {
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const messages = (await import(`../../../../messages/${locale}.json`))
     .default;
 

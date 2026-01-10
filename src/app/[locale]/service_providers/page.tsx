@@ -1,13 +1,13 @@
 "use client";
 import { createTranslator, useTranslations } from "next-intl";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, use } from "react";
 import AlertSection from "./Components/AlertSection";
 import SideBarFilter from "./Components/SideBarFilter";
 import ProvidersCards from "./Components/ProvidersCards";
 
-const Page = ({ params }) => {
-  const { locale } = params;
+const Page = ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = use(params);
   const t = useTranslations("");
   const [content, setContent]: any = useState([]);
 
