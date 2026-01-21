@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const t = createTranslator({
     locale,
     messages,
-    namespace: "Trainings",
+    namespace: "EventsPage",
   });
 
   return (
@@ -34,21 +34,20 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           </div>
           <div className="container mx-auto h-52 md:h-60 lg:h-72 xl:min-h-80 flex flex-col justify-end">
             <p className="text-lg md:text-2xl lg:text-4xl font-bold ">
-              الفعاليات في SFMA
+              {t("title")}
             </p>
             <p className="lg:text-xl md:text-lg text-[11px] font-semibold lg:my-6 my-3">
-              تنظم الجمعية فعاليات قيادية في مجال إدارة المرافق، وتوفر خدمات
-              متكاملة لإدارة فعاليات الجهات الأخرى.
+              {t("description")}
             </p>
             <div className="flex gap-4 mb-10">
               <Link href={`/${locale}/events/all`} className="inline-block">
                 <div className="bg-white w-fit text-[var(--main)] font-bold lg:p-2 p-1 text-md rounded-lg mb-[18px] mt-[2px] border-2 border-white text-[10px] md:text-[14px] transition-all duration-300  hover:scale-105">
-                  استكشف فعالياتنا
+                  {t("explore_button")}
                 </div>
               </Link>
               <Link href="mailto:example@sfma.org" className="inline-block">
                 <div className="bg-transparent w-fit text-white font-bold lg:p-2 p-1 text-md rounded-lg mb-[18px] mt-[2px] border-2 border-white text-[10px] md:text-[14px] transition-all duration-300 hover:border-[var(--main)] hover:bg-white hover:text-[var(--main)] hover:scale-105">
-                  اطلب إدارة فعالية
+                  {t("request_button")}
                 </div>
               </Link>
             </div>

@@ -615,6 +615,12 @@
     "full_time": "Full Time",
     "posted_on": "Posted on"
   },
+  "EventsPage": {
+    "title": "Events in SFMA",
+    "description": "The association organizes leading events in the field of facility management, and provides integrated services for managing events for other parties.",
+    "explore_button": "Explore our events",
+    "request_button": "Request event management"
+  },
   "event_planning": {
     "title": "Event Planning Service",
     "description": "The Saudi Facilities Management Association has extensive experience in planning and executing all types of events, including conferences, exhibitions, workshops, and seminars. We provide comprehensive solutions to manage your event from idea to completion.",
