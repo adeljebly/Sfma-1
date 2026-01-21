@@ -7,7 +7,8 @@ import Link from "next/link";
 import EventPlanning from "./Components/EventPlanning";
 import Events from "./Components/Events";
 
-export default async function Page({ params: { locale } }: any) {
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const messages = (await import(`../../../messages/${locale}.json`)).default;
 
   const t = createTranslator({
