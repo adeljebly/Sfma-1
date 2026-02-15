@@ -4,6 +4,42 @@ import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
+/** Normalize API date (e.g. "2026-02-10 00:00:00") to ISO UTC so the calendar day is correct. */
+function parseApiDate(value: string | null): Date | null {
+  if (!value || typeof value !== "string") return null;
+  const trimmed = value.trim();
+  // "2026-02-10 00:00:00" or "2026-02-10" → treat as UTC date
+  if (/^\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2}:\d{2})?$/.test(trimmed)) {
+    const datePart = trimmed.split(/\s/)[0];
+    return new Date(`${datePart}T00:00:00.000Z`);
+  }
+  return new Date(trimmed);
+}
+
+/** Format date_from/date_to for card badge using API date as stored. */
+function formatCourseDateRange(
+  dateFrom: string | null,
+  dateTo: string | null,
+  locale: string
+) {
+  const from = parseApiDate(dateFrom);
+  const to = parseApiDate(dateTo);
+  if (!from || !to || Number.isNaN(from.getTime()) || Number.isNaN(to.getTime())) return "";
+  const localeTag = locale === "en" ? "en-US" : "ar-EG";
+  const monthOpts: Intl.DateTimeFormatOptions = {
+    month: "long",
+    timeZone: "UTC",
+  };
+  const fromDay = from.getUTCDate();
+  const toDay = to.getUTCDate();
+  const fromMonth = from.toLocaleDateString(localeTag, monthOpts);
+  const toMonth = to.toLocaleDateString(localeTag, monthOpts);
+  if (fromMonth === toMonth) {
+    return `${fromDay} - ${toDay} ${fromMonth}`;
+  }
+  return `${fromDay} ${fromMonth} - ${toDay} ${toMonth}`;
+}
+
 export default function Next_Courses() {
   const t = useTranslations("Training");
   const [loadingPaths, setLoadingPaths] = useState(false);
@@ -64,11 +100,7 @@ export default function Next_Courses() {
         </p>
       </div>
       <div className="absolute top-0 start-0 -translate-5 bg-[var(--main)] text-white py-2 px-4 rounded-lg">
-        {new Date(course.date_from).getDate()} -{" "}
-        {new Date(course.date_to).getDate()}{" "}
-        {new Date(course.date_from).toLocaleDateString("ar-EG", {
-          month: "long",
-        })}
+        {formatCourseDateRange(course?.date_from, course?.date_to, lang)}
       </div>
 
       <Link href={`/${lang}/training/${course?.id}`} className="inline-block">

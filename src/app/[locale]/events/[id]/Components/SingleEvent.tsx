@@ -1,5 +1,5 @@
 "use client";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import { formatDate } from "@/utils/formatDate";
 
 const SingleEvent = ({ id }) => {
   const lang = useLocale();
+  const t = useTranslations("SingleEvent");
   const [content, setContent]: any = useState([]);
   const [loadingContent, setLoadingContent] = useState(false);
   const getEmbedUrl = (url) => {
@@ -102,13 +103,13 @@ const SingleEvent = ({ id }) => {
             target="_blank"
             className="block cursor-pointer lg:-mx-0 mx-auto lg:text-base text-[12px] hover:opacity-85 mt-4 text-center bg-gradient-to-r from-[var(--main_gradiant)] to-[var(--main)] w-fit text-white px-3 py-2 rounded-lg font-semibold"
           >
-            زيارة الموقع الرسمي للفعالية
+            {t("visit_official_website")}
           </Link>
         )}
       </div>
       <div className="bg-[#F6F6F6] py-8 lg:mt-10 mt-6">
         <p className="text-[var(--main)] text-center lg:text-3xl text-xl font-bold">
-          نبذة عن الحدث
+          {t("about_the_event")}
         </p>
         <p className="text-[#555555] text-center mx-auto mt-2 leading-7 lg:text-base text-[13px]">
           {content?.sub_title}
@@ -136,25 +137,27 @@ const SingleEvent = ({ id }) => {
         <ImageSlider images={content?.images} />
       </div>
       {content?.video_url && (
-        <div className=" container mx-auto">
-          <iframe
-            src={getEmbedUrl(content?.video_url)}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            className=" rounded-lg w-full md:w-1/2 lg:min-h-[350px] min-h-[230px] mx-auto"
-            style={{ display: "block" }}
-          ></iframe>
-        </div>
-      )}
-      {content?.event_url && (
-        <Link
-          href={`${content?.event_url}`}
-          target="_blank"
-          className="block mx-auto cursor-pointer lg:text-base text-[12px] hover:opacity-85 mt-4 text-center bg-gradient-to-r from-[var(--main_gradiant)] to-[var(--main)] w-fit text-white px-3 py-2 rounded-lg font-semibold"
-        >
-          زيارة الموقع الرسمي للفعالية
-        </Link>
+        <>
+          <div className="container mx-auto">
+            <iframe
+              src={getEmbedUrl(content?.video_url)}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="rounded-lg w-full md:w-1/2 lg:min-h-[350px] min-h-[230px] mx-auto"
+              style={{ display: "block" }}
+            ></iframe>
+          </div>
+          {content?.event_url && (
+            <Link
+              href={`${content?.event_url}`}
+              target="_blank"
+              className="block mx-auto cursor-pointer lg:text-base text-[12px] hover:opacity-85 mt-4 text-center bg-gradient-to-r from-[var(--main_gradiant)] to-[var(--main)] w-fit text-white px-3 py-2 rounded-lg font-semibold"
+            >
+              {t("visit_official_website")}
+            </Link>
+          )}
+        </>
       )}
     </section>
   );

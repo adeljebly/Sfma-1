@@ -7,6 +7,14 @@ const Single = ({ id }) => {
   const [content, setContent]: any = useState({});
   const [loadingContent, setLoadingContent] = useState(false);
   const t = useTranslations();
+
+  const getTrainerName = (user: any) => {
+    if (lang === "en") {
+      return user?.full_name_en || user?.name;
+    }
+    return user?.full_name_ar || user?.name;
+  };
+
   useEffect(() => {
     const fetchSinglePath = async () => {
       const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}courses/get-instructor-details?instructor_id=${id}`;
@@ -45,7 +53,7 @@ const Single = ({ id }) => {
         </div>
         <div className="ms-4 text-start">
           <p className="font-bold lg:text-xl text-base">
-            {content?.user?.name}
+            {getTrainerName(content?.user)}
           </p>
           <p className="lg:text-base text-[13px]">{content?.specialization}</p>
         </div>

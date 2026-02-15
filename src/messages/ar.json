@@ -5,6 +5,8 @@
     "instruction": "اضغط على الدورة اللي ترغب فيها لمزيد من التفاصيل",
     "resume": "السيرة المهنية",
     "learn_more": "معرفة المزيد",
+    "language_arabic": "العربية",
+    "language_english": "English",
     "no_image": "لا توجد صور متاحة",
     "members_images": "صور الأعضاء",
     "members_images_2": "أعضاء مجلس الإدارة",
@@ -618,6 +620,10 @@
     "explore_button": "استكشف فعالياتنا",
     "request_button": "اطلب إدارة فعالية"
   },
+  "SingleEvent": {
+    "visit_official_website": "زيارة الموقع الرسمي للفعالية",
+    "about_the_event": "نبذة عن الحدث"
+  },
   "event_planning": {
     "title": "خدمة تنظيم الفعاليات",
     "description": "تمتلك الجمعية السعودية لإدارة المرافق خبرة واسعة في تخطيط وتنفيذ الفعاليات بمختلف أنواعها، بما في ذلك المؤتمرات، المعارض، الورش، والندوات. نوفّر حلولًا متكاملة لإدارة الحدث من الفكرة حتى الإنجاز.",
@@ -655,7 +661,12 @@
     "drag_or_click": "اسحب الملفات هنا أو",
     "click_to_upload": "اضغط لاختيار الملف",
     "file_hint": "PDF أو JPG (بحد أقصى 5 ميجابايت)",
-    "complete_payment": "إتمام الدفع"
+    "complete_payment": "إتمام الدفع",
+    "bank_details": "تفاصيل الحساب البنكي",
+    "bank_name": "اسم البنك",
+    "bank_account_name": "اسم الحساب",
+    "bank_account_number": "رقم الحساب",
+    "bank_iban": "رقم الآيبان"
   },
   "RegistrationStatus": {
     "failed_title": "فشلت عملية التسجيل",

@@ -4,6 +4,8 @@
     "instruction": "Click on the course you are interested in for more details",
     "resume": "Professional biography",
     "learn_more": "Learn more",
+    "language_arabic": "Arabic",
+    "language_english": "English",
     "no_image": "No images available",
     "members_images": "Members Images",
     "members_images_2": "Board Members",
@@ -621,6 +623,10 @@
     "explore_button": "Explore our events",
     "request_button": "Request event management"
   },
+  "SingleEvent": {
+    "visit_official_website": "Visit Official Event Website",
+    "about_the_event": "About the Event"
+  },
   "event_planning": {
     "title": "Event Planning Service",
     "description": "The Saudi Facilities Management Association has extensive experience in planning and executing all types of events, including conferences, exhibitions, workshops, and seminars. We provide comprehensive solutions to manage your event from idea to completion.",
@@ -658,7 +664,12 @@
     "drag_or_click": "Drag files here or",
     "click_to_upload": "click to choose a file",
     "file_hint": "PDF or JPG (Max 5MB)",
-    "complete_payment": "Complete Payment"
+    "complete_payment": "Complete Payment",
+    "bank_details": "Bank Account Details",
+    "bank_name": "Bank Name",
+    "bank_account_name": "Account Name",
+    "bank_account_number": "Account Number",
+    "bank_iban": "IBAN"
   },
   "RegistrationStatus": {
     "failed_title": "Registration failed",

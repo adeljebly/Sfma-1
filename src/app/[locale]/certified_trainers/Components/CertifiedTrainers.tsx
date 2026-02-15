@@ -34,6 +34,13 @@ const CertifiedTrainers = () => {
     fetchSinglePath();
   }, [lang]);
 
+  const getTrainerName = (user: any) => {
+    if (lang === "en") {
+      return user?.full_name_en || user?.name;
+    }
+    return user?.full_name_ar || user?.name;
+  };
+
   const Card = ({ trainer }) => {
     return (
       <div className="bg-[#F6F6F6] shadow lg:col-span-1 md:col-span-2 col-span-3 border-b-4 border-[var(--second_main)] rounded-md px-4 text-center">
@@ -47,7 +54,7 @@ const CertifiedTrainers = () => {
           />
         </div>
         <p className="text-[#555555] font-bold text-xl my-3 -translate-y-7">
-          {trainer?.user?.name}
+          {getTrainerName(trainer?.user)}
         </p>
         <Link
           href={`/${lang}/certified_trainers/${trainer?.id}`}

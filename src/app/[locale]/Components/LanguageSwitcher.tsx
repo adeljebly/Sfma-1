@@ -1,11 +1,12 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 const LanguageSwitcher = () => {
   const locale = useLocale();
+  const t = useTranslations("common");
   const router = useRouter();
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
@@ -26,8 +27,8 @@ const LanguageSwitcher = () => {
 
   const getLabelAndFlag = () => {
     return locale === "ar"
-      ? { label: "English", flag: "🇺🇸" }
-      : { label: "العربية", flag: "🇸🇦" };
+      ? { label: t("language_english"), flag: "🇺🇸" }
+      : { label: t("language_arabic"), flag: "🇸🇦" };
   };
 
   const { label, flag } = getLabelAndFlag();

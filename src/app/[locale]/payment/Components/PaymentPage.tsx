@@ -2,22 +2,60 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation"; // أو "next/router" لو نسخة أقدم
+import { useRouter } from "next/navigation";
 
-// const ACCEPTED_TYPES = ["image/jpeg", "image/png"];
+const BANK_TRANSFER_VALUE = "bank_transfer";
+
+type BankDetails = {
+  bank_account_name: string;
+  bank_account_number: string;
+  bank_iban: string;
+  bank_name: string;
+};
 
 const PaymentPage = () => {
   const lang = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const payment_data: any = JSON.parse(localStorage.getItem("payment_data"));
+  const payment_data: any = JSON.parse(
+    typeof localStorage !== "undefined" ? localStorage.getItem("payment_data") ?? "null" : "null"
+  );
   const t = useTranslations("Payment");
-  const [selectedValue, setSelectedValue] = useState("option1");
+  const [selectedValue, setSelectedValue] = useState(BANK_TRANSFER_VALUE);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [bankDetails, setBankDetails] = useState<BankDetails | null>(null);
+  const [bankDetailsLoading, setBankDetailsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    if (selectedValue !== BANK_TRANSFER_VALUE) {
+      setBankDetails(null);
+      return;
+    }
+    const token = typeof localStorage !== "undefined" ? localStorage.getItem("auth_token") : null;
+    setBankDetailsLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}business-settings`, {
+      method: "GET",
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+        "Accept-Language": lang || "ar",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setBankDetails({
+          bank_account_name: data?.bank_account_name ?? "",
+          bank_account_number: data?.bank_account_number ?? "",
+          bank_iban: data?.bank_iban ?? "",
+          bank_name: data?.bank_name ?? "",
+        });
+      })
+      .catch(() => setBankDetails(null))
+      .finally(() => setBankDetailsLoading(false));
+  }, [selectedValue, lang]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -109,11 +147,11 @@ const PaymentPage = () => {
       {/* Payment Option */}
       <div className="shadow-lg p-7 bg-[#F6F6F6] w-full mx-auto lg:max-w-5/12">
         <div className="flex justify-between items-center">
-          <label className="flex items-start gap-x-3 lg:gap-x-5">
+          <label className="flex items-start gap-x-3 lg:gap-x-5 cursor-pointer">
             <input
               type="radio"
-              value="option2"
-              checked={true}
+              value={BANK_TRANSFER_VALUE}
+              checked={selectedValue === BANK_TRANSFER_VALUE}
               onChange={handleChange}
               className="accent-black w-5 lg:w-6 h-5 lg:h-6"
             />
@@ -150,6 +188,36 @@ const PaymentPage = () => {
             {t("receipt_required")}
           </p>
         </div>
+
+        {selectedValue === BANK_TRANSFER_VALUE && (
+          <div className="mt-5 pt-5 border-t border-gray-200">
+            <p className="text-base lg:text-lg font-bold text-[var(--main)] mb-3">
+              {t("bank_details")}
+            </p>
+            {bankDetailsLoading ? (
+              <div className="flex gap-1 min-h-6">
+                <span className="w-2 h-2 bg-[var(--main)] rounded-full animate-bounce [animation-delay:-0.3s]" />
+                <span className="w-2 h-2 bg-[var(--main)] rounded-full animate-bounce [animation-delay:-0.15s]" />
+                <span className="w-2 h-2 bg-[var(--main)] rounded-full animate-bounce" />
+              </div>
+            ) : bankDetails && (bankDetails.bank_name || bankDetails.bank_account_name || bankDetails.bank_account_number || bankDetails.bank_iban) ? (
+              <div className="grid gap-2 text-sm lg:text-base text-[#555555]">
+                {bankDetails.bank_name && (
+                  <p><span className="font-semibold text-black">{t("bank_name")}:</span> {bankDetails.bank_name}</p>
+                )}
+                {bankDetails.bank_account_name && (
+                  <p><span className="font-semibold text-black">{t("bank_account_name")}:</span> {bankDetails.bank_account_name}</p>
+                )}
+                {bankDetails.bank_account_number && (
+                  <p><span className="font-semibold text-black">{t("bank_account_number")}:</span> {bankDetails.bank_account_number}</p>
+                )}
+                {bankDetails.bank_iban && (
+                  <p><span className="font-semibold text-black">{t("bank_iban")}:</span> {bankDetails.bank_iban}</p>
+                )}
+              </div>
+            ) : null}
+          </div>
+        )}
       </div>
 
       {/* File Upload */}

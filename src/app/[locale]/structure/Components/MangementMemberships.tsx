@@ -41,8 +41,8 @@ const MangementMemberships = () => {
 
   const Card = ({ membership }) => {
     return (
-      <div className="bg-[#F6F6F6] shadow lg:col-span-1 md:col-span-2 col-span-3 border-b-4 border-[var(--second_main)] rounded-lg px-4 text-center">
-        <div className="w-32 border-2 border-[var(--second_main)] rounded-lg mx-auto -translate-y-7">
+      <div className="flex flex-col bg-[#F6F6F6] shadow lg:col-span-1 md:col-span-2 col-span-3 border-b-4 border-[var(--second_main)] rounded-lg px-4 pt-4 pb-5 text-center overflow-visible">
+        <div className="w-32 border-2 border-[var(--second_main)] rounded-lg mx-auto -translate-y-7 shrink-0">
           <img
             src={`https://sffma.fmexcon.com/storage/${membership?.image}`}
             alt="About Us"
@@ -51,15 +51,15 @@ const MangementMemberships = () => {
             className="w-full h-auto object-cover rounded-lg "
           />
         </div>
-        <p className="text-[#555555] font-bold text-xl mt-3 -translate-y-6">
+        <p className="text-[#555555] font-bold text-xl mt-3 -translate-y-6 shrink-0">
           {membership?.name}
         </p>
-        <p className="text-[#555555] text-base mt-1 mb-3 -translate-y-6">
+        <p className="text-[#555555] text-base mt-1 mb-4 -translate-y-6 shrink-0">
           {membership?.position}
         </p>
         <Link
           href={`/${lang}/structure/${activeTab}/${membership?.id}`}
-          className="block cursor-pointer mx-auto hover:opacity-85 -translate-y-6 bg-gradient-to-r from-[var(--main_gradiant)] to-[var(--main)] w-fit text-white px-4 py-[6px] rounded-lg font-semibold text-[15px]"
+          className="block cursor-pointer mx-auto hover:opacity-85 mt-auto shrink-0 bg-gradient-to-r from-[var(--main_gradiant)] to-[var(--main)] w-fit text-white px-4 py-[6px] rounded-lg font-semibold text-[15px]"
         >
           {t("common.learn_more")}
         </Link>

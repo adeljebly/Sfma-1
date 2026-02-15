@@ -47,8 +47,10 @@ const CustomCalendar = ({ filters }) => {
         .map((course) => ({
           id: course.id,
           title: course.title,
-          start: new Date(course.date_from),
-          end: new Date(course.date_to),
+          start: moment(course.date_from).toDate(),
+          // react-big-calendar treats end as exclusive for allDay events,
+          // so add 1 day to include date_to in the display range.
+          end: moment(course.date_to).add(1, "day").toDate(),
           allDay: true,
           course,
         }));
